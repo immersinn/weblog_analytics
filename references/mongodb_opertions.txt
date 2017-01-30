@@ -1,0 +1,50 @@
+# create the collection, "XXXXXX" where each record
+# consists of a game id and the total number of moments 
+# associated with that game id in "Moments" collection
+
+var mapFunction1 = function() {
+				 	emit(this.game_id, 1);
+				 };
+
+var reduceFunction1 = function(keyGameId, valuesUnity) {
+						return Array.sum(valuesUnity);
+					};
+
+db.Moments.mapReduce(
+						mapFunction1,
+						reduceFunction1,
+						{ out: "moments_per_game" }
+					)
+
+# Calculate average number of moments per game from 
+# "moments_per_game" collection
+db.moments_per_game.aggregate(
+	[
+		{
+			$group:
+				{
+					_id: null,
+					avgMomCount: { $avg: "$value"}
+				}
+		}
+	]
+)
+
+
+# Get all the keys that are present across records
+# in a collection
+mr = db.runCommand({ 
+	"mapreduce" : "Games",
+	"map" : function() { 
+		for (var key in this) { 
+			emit(key, 1); 
+		} 
+	}, 
+	"reduce" : function(key, stuff) { 
+		return null; 
+	}, 
+	"out": "Games" + "_keys"
+})
+
+db.Games_keys.distinct("_id")
+

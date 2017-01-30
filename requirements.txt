@@ -41,6 +41,7 @@ mccabe==0.6.1
 mistune==0.7.3
 mpmath==0.19
 murmurhash==0.26.4
+mysql-connector==2.1.4
 nbconvert==5.1.1
 nbformat==4.2.0
 networkx==1.11
