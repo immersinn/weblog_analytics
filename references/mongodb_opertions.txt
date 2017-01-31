@@ -34,7 +34,7 @@ db.moments_per_game.aggregate(
 # Get all the keys that are present across records
 # in a collection
 mr = db.runCommand({ 
-	"mapreduce" : "Games",
+	"mapreduce" : "PhysOrg",
 	"map" : function() { 
 		for (var key in this) { 
 			emit(key, 1); 
@@ -43,7 +43,7 @@ mr = db.runCommand({
 	"reduce" : function(key, stuff) { 
 		return null; 
 	}, 
-	"out": "Games" + "_keys"
+	"out": "PhysOrg" + "_keys"
 })
 
 db.Games_keys.distinct("_id")
