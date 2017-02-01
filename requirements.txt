@@ -81,6 +81,7 @@ requests==2.13.0
 rope-py3k==0.9.4.post1
 scikit-learn==0.18.1
 scipy==0.18.1
+seaborn==0.7.1
 semver==2.7.5
 simplegeneric==0.8.1
 sip==4.19
